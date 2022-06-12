@@ -1,0 +1,118 @@
+﻿@model IEnumerable<MarketingR.Models.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Empleados</h2>
+
+<div class="container">
+    <div class="col-sm-10"></div>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</div>
+<input type="hidden" id="txtOcultar" value="@ViewBag.Accion" />
+<br />
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre_Completo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hora_inicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo_documento.Descripcion)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_Completo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hora_inicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo_documento.Descripcion)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_empleado }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id_empleado }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_empleado })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    //function Busquedax() {
+    //    var busqueda = $("#txtBuscar").val();
+    //    alert(busqueda);
+    //}
+    $(document).ready(function () {
+        if ($("#txtOcultar").val() == "Insertado") {
+            swal("Producto Registrado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Editado") {
+            swal("Producto Editado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Eliminado") {
+            swal("Producto Eliminado!", "Datos  Eliminados correctamente!", "success");
+        }
+    });
+</script>
+@*<script>
+    $(document).ready(function () {
+        //swal("Empleado Registrado!", "Datos  guardados correctamente!", "success").then((value) => {
+        //    location.reload();
+        //});
+
+        if ($("#txtOcultar").val() != "") {
+            swal({
+                title: "Empleado Registrado!",
+                text: "Datos Guardados correctamente",
+                icon: "warning",
+                button: "Guardado",
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "/Empleados/Index";
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+    });
+</script>*@

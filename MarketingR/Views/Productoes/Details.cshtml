@@ -1,0 +1,62 @@
+﻿@model MarketingR.Models.Producto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading">Detalle producto</div>
+    <div class="panel-body">
+        <div class="container">
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Nombre_producto)
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Nombre_producto, new { htmlAttributes = new { @class = "form-control", @type = "text", @readonly = "true" } })
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Precio)
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control", @type = "text", @readonly = "true" } })
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Cantidad)
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control", @type = "text", @readonly = "true" } })
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Ultima_compra)
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Ultima_compra, new { htmlAttributes = new { @class = "form-control", @type = "text", @readonly = "true" } })
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Existencias)
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control", @type = "text", @readonly = "true" } })
+            </div>
+        </div>
+        <br />
+    </div>
+ </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id_producto }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
