@@ -18,7 +18,23 @@ namespace MarketingR.Controllers
         // GET: Productoes
         public ActionResult Index()
         {
-            var productoes = db.Productoes.Include(p => p.oCategoria);
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
+                var productoes = db.Productoes.Include(p => p.oCategoria);
             return View(productoes.ToList());
         }
 
@@ -55,6 +71,7 @@ namespace MarketingR.Controllers
             {
                 db.Productoes.Add(producto);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
 
@@ -74,6 +91,7 @@ namespace MarketingR.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Ultima_compra = string.Format("{0:dd/MM/yyyy}", producto.Ultima_compra);
             ViewBag.IdCategoria = new SelectList(db.Categorias, "IdCategoria", "Descripcion", producto.IdCategoria);
             return View(producto);
         }
@@ -89,34 +107,18 @@ namespace MarketingR.Controllers
             {
                 db.Entry(producto).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             ViewBag.IdCategoria = new SelectList(db.Categorias, "IdCategoria", "Descripcion", producto.IdCategoria);
             return View(producto);
         }
 
-        // GET: Productoes/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarDato(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Producto producto = db.Productoes.Find(id);
-            if (producto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(producto);
-        }
-
-        // POST: Productoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Producto producto = db.Productoes.Find(id);
-            db.Productoes.Remove(producto);
+            Producto dato = db.Productoes.Find(id);
+            db.Productoes.Remove(dato);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

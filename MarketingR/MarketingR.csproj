@@ -350,18 +350,12 @@
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Productoes\Create.cshtml" />
-    <Content Include="Views\Productoes\Delete.cshtml" />
-    <Content Include="Views\Productoes\Details.cshtml" />
     <Content Include="Views\Productoes\Edit.cshtml" />
     <Content Include="Views\Productoes\Index.cshtml" />
     <Content Include="Views\Ventas\Create.cshtml" />
-    <Content Include="Views\Ventas\Delete.cshtml" />
-    <Content Include="Views\Ventas\Details.cshtml" />
     <Content Include="Views\Ventas\Edit.cshtml" />
     <Content Include="Views\Ventas\Index.cshtml" />
     <Content Include="Views\Detalle_venta\Create.cshtml" />
-    <Content Include="Views\Detalle_venta\Delete.cshtml" />
-    <Content Include="Views\Detalle_venta\Details.cshtml" />
     <Content Include="Views\Detalle_venta\Edit.cshtml" />
     <Content Include="Views\Detalle_venta\Index.cshtml" />
   </ItemGroup>

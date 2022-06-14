@@ -21,6 +21,7 @@ namespace MarketingR.Models
 
         public int Cantidad { get; set; }
 
+        [DataType(DataType.Currency)]
         public double PrecioVenta { get; set; }
     }
 }

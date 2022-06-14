@@ -18,23 +18,24 @@ namespace MarketingR.Controllers
         // GET: Detalle_venta
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             var detalle_venta = db.Detalle_venta.Include(d => d.oProducto).Include(d => d.oVenta);
             return View(detalle_venta.ToList());
-        }
-
-        // GET: Detalle_venta/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Detalle_venta detalle_venta = db.Detalle_venta.Find(id);
-            if (detalle_venta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(detalle_venta);
         }
 
         // GET: Detalle_venta/Create
@@ -52,13 +53,24 @@ namespace MarketingR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdDetalleVenta,IdVenta,IdProducto,Cantidad,PrecioVenta")] Detalle_venta detalle_venta)
         {
+            Producto dato = db.Productoes.Find(detalle_venta.IdProducto);
+            decimal cantidad = dato.Precio;
+            decimal precioVenta = detalle_venta.Cantidad * cantidad;
+
+            var detalleVenta = new Detalle_venta
+            {
+                IdDetalleVenta = detalle_venta.IdDetalleVenta,
+                IdVenta = detalle_venta.IdVenta,
+                IdProducto = detalle_venta.IdProducto,
+                Cantidad = detalle_venta.Cantidad,
+                PrecioVenta = ((double)precioVenta)
+            };
             if (ModelState.IsValid)
             {
-                db.Detalle_venta.Add(detalle_venta);
+                db.Detalle_venta.Add(detalleVenta);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.IdProducto = new SelectList(db.Productoes, "IdProducto", "Nombre_producto", detalle_venta.IdProducto);
             ViewBag.IdVenta = new SelectList(db.Ventas, "IdVenta", "IdVenta", detalle_venta.IdVenta);
             return View(detalle_venta);
@@ -88,10 +100,12 @@ namespace MarketingR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdDetalleVenta,IdVenta,IdProducto,Cantidad,PrecioVenta")] Detalle_venta detalle_venta)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Entry(detalle_venta).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             ViewBag.IdProducto = new SelectList(db.Productoes, "IdProducto", "Nombre_producto", detalle_venta.IdProducto);
@@ -99,28 +113,11 @@ namespace MarketingR.Controllers
             return View(detalle_venta);
         }
 
-        // GET: Detalle_venta/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarDato(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Detalle_venta detalle_venta = db.Detalle_venta.Find(id);
-            if (detalle_venta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(detalle_venta);
-        }
-
-        // POST: Detalle_venta/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Detalle_venta detalle_venta = db.Detalle_venta.Find(id);
-            db.Detalle_venta.Remove(detalle_venta);
+            Detalle_venta dato = db.Detalle_venta.Find(id);
+            db.Detalle_venta.Remove(dato);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

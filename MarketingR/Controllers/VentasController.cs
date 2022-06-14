@@ -18,23 +18,24 @@ namespace MarketingR.Controllers
         // GET: Ventas
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             var ventas = db.Ventas.Include(v => v.oCliente);
             return View(ventas.ToList());
-        }
-
-        // GET: Ventas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Venta venta = db.Ventas.Find(id);
-            if (venta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(venta);
         }
 
         // GET: Ventas/Create
@@ -55,6 +56,7 @@ namespace MarketingR.Controllers
             {
                 db.Ventas.Add(venta);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
 
@@ -74,6 +76,7 @@ namespace MarketingR.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.FechaVenta = string.Format("{0:dd/MM/yyyy}", venta.FechaVenta);
             ViewBag.IdCliente = new SelectList(db.Clientes, "IdCliente", "Nombres", venta.IdCliente);
             return View(venta);
         }
@@ -89,34 +92,18 @@ namespace MarketingR.Controllers
             {
                 db.Entry(venta).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             ViewBag.IdCliente = new SelectList(db.Clientes, "IdCliente", "Nombres", venta.IdCliente);
             return View(venta);
         }
 
-        // GET: Ventas/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarDato(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Venta venta = db.Ventas.Find(id);
-            if (venta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(venta);
-        }
-
-        // POST: Ventas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Venta venta = db.Ventas.Find(id);
-            db.Ventas.Remove(venta);
+            Venta dato = db.Ventas.Find(id);
+            db.Ventas.Remove(dato);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

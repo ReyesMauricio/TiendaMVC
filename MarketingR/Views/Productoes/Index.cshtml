@@ -4,60 +4,124 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Listado de Productos</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.oCategoria.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre_producto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ultima_compra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Existencias)
-        </th>
-        <th></th>
-    </tr>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 66px;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
+                                <i class="fas fa-plus"></i> Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0" style="height: 300px;">
+                <input type="hidden" id="txtOcultar" value="@ViewBag.Accion" />
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                Categoria
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nombre_producto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Precio)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cantidad)
+                            </th>
+                            <th>
+                                Ultima compra
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Existencias)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.oCategoria.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre_producto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Precio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cantidad)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ultima_compra)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Existencias)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdProducto }, new { @class = "btn btn-primary" }) |
+                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdProducto")><i class='fa fa-trash'></i></a>
+                                </td>
+                            </tr>
+                        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.oCategoria.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre_producto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ultima_compra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Existencias)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdProducto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdProducto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdProducto })
-        </td>
-    </tr>
-}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
 
-</table>
+    $(document).ready(function () {
+        if ($("#txtOcultar").val() == "Insertado") {
+            swal("Registro Guardado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Editado") {
+            swal("Registro Editado!", "Datos editados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Eliminado") {
+            swal("Registro Eliminado!", "Datos  Eliminados correctamente!", "success");
+        }
+    });
+
+    function Crear() {
+        document.getElementById("btnCrear")
+        location.href = "/Productoes/Create";
+    }
+
+    function Delete(id) {
+        var url;
+        swal({
+            title: "Estas seguro?",
+            text: "Si lo eliminas, no podrás recuperarlo!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    url = '@Url.Action("EliminarDato", "Productoes")/' + id,
+                    window.location.href = url;
+                } else {
+                    swal("Cancelado!");
+                }
+            });
+    }
+</script>
+
+
+

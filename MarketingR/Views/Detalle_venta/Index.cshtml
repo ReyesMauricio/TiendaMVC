@@ -4,48 +4,110 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalle de ventas</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.oProducto.Nombre_producto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.oVenta.IdVenta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PrecioVenta)
-        </th>
-        <th></th>
-    </tr>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 66px;">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
+                                <i class="fas fa-plus"></i> Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0" style="height: 300px;">
+                <input type="hidden" id="txtOcultar" value="@ViewBag.Accion" />
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.oProducto.Nombre_producto)
+                            </th>
+                            <th>
+                                Venta
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cantidad)
+                            </th>
+                            <th>
+                                Precio venta
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.oProducto.Nombre_producto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.oVenta.IdVenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cantidad)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdDetalleVenta }, new { @class = "btn btn-primary" }) |
+                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdDetalleVenta")><i class='fa fa-trash'></i></a>
+                                </td>
+                            </tr>
+                        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.oProducto.Nombre_producto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.oVenta.IdVenta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrecioVenta)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdDetalleVenta }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdDetalleVenta }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdDetalleVenta })
-        </td>
-    </tr>
-}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        if ($("#txtOcultar").val() == "Insertado") {
+            swal("Registro Guardado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Editado") {
+            swal("Registro Editado!", "Datos editados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Eliminado") {
+            swal("Registro Eliminado!", "Datos  Eliminados correctamente!", "success");
+        }
+    });
 
-</table>
+    function Crear() {
+        document.getElementById("btnCrear")
+        location.href = "/Detalle_venta/Create";
+    }
+
+    function Delete(id) {
+        var url;
+        swal({
+            title: "Estas seguro?",
+            text: "Si lo eliminas, no podrás recuperarlo!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    url = '@Url.Action("EliminarDato", "Detalle_venta")/' + id,
+                    window.location.href = url;
+                } else {
+                    swal("Cancelado!");
+                }
+            });
+    }
+</script>
+
+

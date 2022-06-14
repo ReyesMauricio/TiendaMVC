@@ -18,24 +18,26 @@ namespace MarketingR.Controllers
         // GET: Tipo_documentos
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             return View(db.Tipo_documento.ToList());
         }
 
-        // GET: Tipo_documentos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tipo_documento tipo_documento = db.Tipo_documento.Find(id);
-            if (tipo_documento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipo_documento);
-        }
-
+        
         // GET: Tipo_documentos/Create
         public ActionResult Create()
         {
@@ -53,6 +55,7 @@ namespace MarketingR.Controllers
             {
                 db.Tipo_documento.Add(tipo_documento);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
 
@@ -85,37 +88,20 @@ namespace MarketingR.Controllers
             {
                 db.Entry(tipo_documento).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             return View(tipo_documento);
         }
 
-        // GET: Tipo_documentos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarDato(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tipo_documento tipo_documento = db.Tipo_documento.Find(id);
-            if (tipo_documento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipo_documento);
-        }
-
-        // POST: Tipo_documentos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Tipo_documento tipo_documento = db.Tipo_documento.Find(id);
-            db.Tipo_documento.Remove(tipo_documento);
+            Tipo_documento dato = db.Tipo_documento.Find(id);
+            db.Tipo_documento.Remove(dato);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
