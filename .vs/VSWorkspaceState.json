@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\MarketingR",
+    "\\MarketingR\\Models",
+    "\\MarketingR\\Views",
+    "\\MarketingR\\Views\\Categorias",
+    "\\MarketingR\\Views\\Clientes",
+    "\\MarketingR\\Views\\Shared"
   ],
-  "SelectedNode": "\\MarketingR.sln",
+  "SelectedNode": "\\MarketingR\\Views\\Categorias\\Create.cshtml",
   "PreviewInSolutionExplorer": false
 }

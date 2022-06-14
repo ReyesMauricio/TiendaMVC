@@ -18,6 +18,22 @@ namespace MarketingR.Controllers
         // GET: Categorias
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             return View(db.Categorias.ToList());
         }
 
@@ -54,6 +70,7 @@ namespace MarketingR.Controllers
                 
                 db.Categorias.Add(categoria);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
             
@@ -87,6 +104,7 @@ namespace MarketingR.Controllers
             {
                 db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -105,6 +123,15 @@ namespace MarketingR.Controllers
                 return HttpNotFound();
             }
             return View(categoria);
+        }
+
+        public ActionResult EliminarDato(int? id)
+        {
+            Categoria cat = db.Categorias.Find(id);
+            db.Categorias.Remove(cat);
+            TempData["Accion"] = "Eliminado";
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Categorias/Delete/5

@@ -22,6 +22,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0" style="height: 300px;">
+              <input type="hidden" id="txtOcultar" value="@ViewBag.Accion" />
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>
@@ -40,8 +41,8 @@
                                     @Html.DisplayFor(modelItem => item.FechaRegistro)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdCategoria }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.IdCategoria })
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria}, new { @class="btn btn-primary"}) |
+                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdCategoria")><i class='fa fa-trash'></i></a>
                                 </td>
                             </tr>
                         }
@@ -54,10 +55,42 @@
         <!-- /.card -->
     </div>
 </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
+    $(document).ready(function () {
+        if ($("#txtOcultar").val() == "Insertado") {
+            swal("Registro Guardado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Editado") {
+            swal("Registro Editado!", "Datos editados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Eliminado") {
+            swal("Registro Eliminado!", "Datos  Eliminados correctamente!", "success");
+        }
+    });
+
     function Crear() {
         document.getElementById("btnCrear")
         location.href = "/Categorias/Create";
+    }
+
+    function Delete(id) {
+        var url;
+        swal({
+            title: "Estas seguro?",
+            text: "Si lo eliminas, no podrás recuperarlo!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    url = '@Url.Action("EliminarDato", "Categorias")/' + id,
+                    window.location.href = url;
+                } else {
+                    swal("Cancelado!");
+                }
+            });
     }
 </script>
 

@@ -12,12 +12,10 @@
                 <h3 class="card-title">Listado de clientes</h3>
 
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
+                    <div class="input-group input-group-sm" style="width: 66px;">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
+                            <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
+                                <i class="fas fa-plus"></i> Crear
                             </button>
                         </div>
                     </div>
@@ -25,6 +23,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0" style="height: 300px;">
+                <input type="hidden" id="txtOcultar" value="@ViewBag.Accion" />
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>
@@ -63,8 +62,8 @@
                                     @Html.DisplayFor(modelItem => item.Estado)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdCliente }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.IdCliente })
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdCliente }, new { @class = "btn btn-primary" }) |
+                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdCliente")><i class='fa fa-trash'></i></a>
                                 </td>
                             </tr>
                         }
@@ -77,3 +76,42 @@
         <!-- /.card -->
     </div>
 </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        if ($("#txtOcultar").val() == "Insertado") {
+            swal("Registro Guardado!", "Datos  guardados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Editado") {
+            swal("Registro Editado!", "Datos editados correctamente!", "success");
+        }
+        else if ($("#txtOcultar").val() == "Eliminado") {
+            swal("Registro Eliminado!", "Datos  Eliminados correctamente!", "success");
+        }
+    });
+
+    function Crear() {
+        document.getElementById("btnCrear")
+        location.href = "/Clientes/Create";
+    }
+
+    function Delete(id) {
+        var url;
+        swal({
+            title: "Estas seguro?",
+            text: "Si lo eliminas, no podrás recuperarlo!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    url = '@Url.Action("EliminarDato", "Clientes")/' + id,
+                    window.location.href = url;
+                } else {
+                    swal("Cancelado!");
+                }
+            });
+    }
+</script>

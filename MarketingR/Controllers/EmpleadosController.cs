@@ -18,6 +18,22 @@ namespace MarketingR.Controllers
         // GET: Empleados
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             var empleadoes = db.Empleadoes.Include(e => e.Tipo_documento);
             return View(empleadoes.ToList());
         }
@@ -55,6 +71,7 @@ namespace MarketingR.Controllers
             {
                 db.Empleadoes.Add(empleado);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
 
@@ -75,6 +92,7 @@ namespace MarketingR.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", empleado.IdTipoDocumento);
+            ViewBag.FechaNacimiento = string.Format("{0:dd/MM/yyyy}", empleado.FechaNacimiento);
             return View(empleado);
         }
 
@@ -89,37 +107,22 @@ namespace MarketingR.Controllers
             {
                 db.Entry(empleado).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", empleado.IdTipoDocumento);
             return View(empleado);
         }
 
-        // GET: Empleados/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarDato(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Empleado empleado = db.Empleadoes.Find(id);
-            if (empleado == null)
-            {
-                return HttpNotFound();
-            }
-            return View(empleado);
-        }
-
-        // POST: Empleados/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Empleado empleado = db.Empleadoes.Find(id);
-            db.Empleadoes.Remove(empleado);
+            Empleado emp = db.Empleadoes.Find(id);
+            db.Empleadoes.Remove(emp);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

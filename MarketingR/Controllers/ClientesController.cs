@@ -18,6 +18,22 @@ namespace MarketingR.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
+            if (TempData["Accion"] != null)
+            {
+                var accion = Convert.ToString(TempData["Accion"]);
+                if (accion == "Insertado")
+                {
+                    ViewBag.Accion = "Insertado";
+                }
+                else if (accion == "Editado")
+                {
+                    ViewBag.Accion = "Editado";
+                }
+                else if (accion == "Eliminado")
+                {
+                    ViewBag.Accion = "Eliminado";
+                }
+            }
             var clientes = db.Clientes.Include(c => c.Tipo_documento);
             return View(clientes.ToList());
         }
@@ -55,6 +71,7 @@ namespace MarketingR.Controllers
             {
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
+                TempData["Accion"] = "Insertado";
                 return RedirectToAction("Index");
             }
 
@@ -89,37 +106,23 @@ namespace MarketingR.Controllers
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
             ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", cliente.IdTipoDocumento);
             return View(cliente);
         }
 
-        // GET: Clientes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cliente cliente = db.Clientes.Find(id);
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cliente);
-        }
 
-        // POST: Clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult EliminarDato(int? id)
         {
-            Cliente cliente = db.Clientes.Find(id);
-            db.Clientes.Remove(cliente);
+            Cliente cl = db.Clientes.Find(id);
+            db.Clientes.Remove(cl);
+            TempData["Accion"] = "Eliminado";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {
