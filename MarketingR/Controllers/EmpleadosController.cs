@@ -18,24 +18,8 @@ namespace MarketingR.Controllers
         // GET: Empleados
         public ActionResult Index()
         {
-            if (TempData["Accion"] != null)
-            {
-                var accion = Convert.ToString(TempData["Accion"]);
-                if (accion == "Insertado")
-                {
-                    ViewBag.Accion = "Insertado";
-                }
-                else if (accion == "Editado")
-                {
-                    ViewBag.Accion = "Editado";
-                }
-                else if (accion == "Eliminado")
-                {
-                    ViewBag.Accion = "Eliminado";
-                }
-            }
-                var empleados = db.Empleados.Include(e => e.Tipo_documento);
-            return View(empleados.ToList());
+            var empleadoes = db.Empleadoes.Include(e => e.Tipo_documento);
+            return View(empleadoes.ToList());
         }
 
         // GET: Empleados/Details/5
@@ -45,7 +29,7 @@ namespace MarketingR.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleado empleado = db.Empleados.Find(id);
+            Empleado empleado = db.Empleadoes.Find(id);
             if (empleado == null)
             {
                 return HttpNotFound();
@@ -56,26 +40,25 @@ namespace MarketingR.Controllers
         // GET: Empleados/Create
         public ActionResult Create()
         {
-            ViewBag.Id_tipoDocumento = new SelectList(db.Tipo_documentos, "Id_tipoDocumento", "Descripcion");
+            ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion");
             return View();
         }
 
         // POST: Empleados/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
+        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_empleado,Nombres,Apellidos,Porcentaje_bonificado,FechaNacimiento,Hora_inicio,Salario,Email,Id_tipoDocumento,Numero_documento")] Empleado empleado)
+        public ActionResult Create([Bind(Include = "IdEmpleado,Nombres,Apellidos,FechaNacimiento,Salario,Email,Numero_documento,IdTipoDocumento")] Empleado empleado)
         {
             if (ModelState.IsValid)
             {
-                db.Empleados.Add(empleado);
+                db.Empleadoes.Add(empleado);
                 db.SaveChanges();
-                TempData["Accion"]= "Insertado";
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id_tipoDocumento = new SelectList(db.Tipo_documentos, "Id_tipoDocumento", "Descripcion", empleado.Id_tipoDocumento);
+            ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", empleado.IdTipoDocumento);
             return View(empleado);
         }
 
@@ -86,30 +69,29 @@ namespace MarketingR.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleado empleado = db.Empleados.Find(id);
+            Empleado empleado = db.Empleadoes.Find(id);
             if (empleado == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id_tipoDocumento = new SelectList(db.Tipo_documentos, "Id_tipoDocumento", "Descripcion", empleado.Id_tipoDocumento);
+            ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", empleado.IdTipoDocumento);
             return View(empleado);
         }
 
         // POST: Empleados/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
+        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_empleado,Nombres,Apellidos,Porcentaje_bonificado,FechaNacimiento,Hora_inicio,Salario,Email,Id_tipoDocumento,Numero_documento")] Empleado empleado)
+        public ActionResult Edit([Bind(Include = "IdEmpleado,Nombres,Apellidos,FechaNacimiento,Salario,Email,Numero_documento,IdTipoDocumento")] Empleado empleado)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(empleado).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["Accion"] = "Editado";
                 return RedirectToAction("Index");
             }
-            ViewBag.Id_tipoDocumento = new SelectList(db.Tipo_documentos, "Id_tipoDocumento", "Descripcion", empleado.Id_tipoDocumento);
+            ViewBag.IdTipoDocumento = new SelectList(db.Tipo_documento, "IdTipoDocumento", "Descripcion", empleado.IdTipoDocumento);
             return View(empleado);
         }
 
@@ -120,7 +102,7 @@ namespace MarketingR.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleado empleado = db.Empleados.Find(id);
+            Empleado empleado = db.Empleadoes.Find(id);
             if (empleado == null)
             {
                 return HttpNotFound();
@@ -133,10 +115,9 @@ namespace MarketingR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Empleado empleado = db.Empleados.Find(id);
-            db.Empleados.Remove(empleado);
+            Empleado empleado = db.Empleadoes.Find(id);
+            db.Empleadoes.Remove(empleado);
             db.SaveChanges();
-            TempData["Accion"] = "Eliminado";
             return RedirectToAction("Index");
         }
 

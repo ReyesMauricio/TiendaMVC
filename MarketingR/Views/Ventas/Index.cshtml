@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MarketingR.Models.Venta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.oCliente.Nombres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaVenta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Impuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalVenta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.oCliente.Nombres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaVenta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Impuesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalVenta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdVenta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdVenta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdVenta })
+        </td>
+    </tr>
+}
+
+</table>

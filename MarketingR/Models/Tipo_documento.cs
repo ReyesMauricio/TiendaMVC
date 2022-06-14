@@ -10,12 +10,14 @@ namespace MarketingR.Models
     {
         [Key]
         [Display(Name = "Tipo documento")]
-        public int Id_tipoDocumento { get; set; }
+        public int IdTipoDocumento { get; set; }
 
         [Required]
         [Display(Name = "Documento")]
         public string Descripcion { get; set; }
 
         public ICollection<Empleado> Empleados { get; set; }
+        
+        public ICollection<Cliente> Clientes { get; set; }
     }
 }

@@ -1,8 +1,15 @@
 ﻿@model MarketingR.Models.RegisterViewModel
 @{
+    Layout = null;
     ViewBag.Title = "Registrarse";
 }
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link href="~/Content/all.css" rel="stylesheet" />
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link href="~/Content/adminlte.min.css" rel="stylesheet" />
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -36,6 +43,15 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<!-- jQuery -->
+<script src="~/Scripts/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+        $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Scripts/adminlte.js"></script>

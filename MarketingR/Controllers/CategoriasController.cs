@@ -11,107 +11,109 @@ using MarketingR.Models;
 
 namespace MarketingR.Controllers
 {
-    public class Tipo_documentoController : Controller
+    public class CategoriasController : Controller
     {
         private MarketingContext db = new MarketingContext();
 
-        // GET: Tipo_documento
+        // GET: Categorias
         public ActionResult Index()
         {
-            return View(db.Tipo_documentos.ToList());
+            return View(db.Categorias.ToList());
         }
 
-        // GET: Tipo_documento/Details/5
+        // GET: Categorias/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tipo_documento tipo_documento = db.Tipo_documentos.Find(id);
-            if (tipo_documento == null)
+            Categoria categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(tipo_documento);
+            return View(categoria);
         }
 
-        // GET: Tipo_documento/Create
+        // GET: Categorias/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Tipo_documento/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Categorias/Create
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
+        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_tipoDocumento,Descripcion")] Tipo_documento tipo_documento)
+        public ActionResult Create([Bind(Include = "IdCategoria,Descripcion,FechaRegistro")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Tipo_documentos.Add(tipo_documento);
+                
+                db.Categorias.Add(categoria);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(tipo_documento);
+            
+            return View(categoria);
         }
 
-        // GET: Tipo_documento/Edit/5
+        // GET: Categorias/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tipo_documento tipo_documento = db.Tipo_documentos.Find(id);
-            if (tipo_documento == null)
+            Categoria categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(tipo_documento);
+            ViewBag.FechaRegistro = string.Format("{0:dd/MM/yyyy}", categoria.FechaRegistro);
+            return View(categoria);
         }
 
-        // POST: Tipo_documento/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Categorias/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
+        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_tipoDocumento,Descripcion")] Tipo_documento tipo_documento)
+        public ActionResult Edit([Bind(Include = "IdCategoria,Descripcion,FechaRegistro")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipo_documento).State = EntityState.Modified;
+                db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tipo_documento);
+            return View(categoria);
         }
 
-        // GET: Tipo_documento/Delete/5
+        // GET: Categorias/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tipo_documento tipo_documento = db.Tipo_documentos.Find(id);
-            if (tipo_documento == null)
+            Categoria categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(tipo_documento);
+            return View(categoria);
         }
 
-        // POST: Tipo_documento/Delete/5
+        // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tipo_documento tipo_documento = db.Tipo_documentos.Find(id);
-            db.Tipo_documentos.Remove(tipo_documento);
+            Categoria categoria = db.Categorias.Find(id);
+            db.Categorias.Remove(categoria);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

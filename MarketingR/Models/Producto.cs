@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace MarketingR.Models
 {
     public class Producto
     {
         [Key]
-        public int Id_producto { get; set; }
+        public int IdProducto { get; set; }
 
         [Required]
         [Display(Name = "Nombre del producto")]
@@ -19,10 +20,14 @@ namespace MarketingR.Models
         public int Cantidad { get; set; }
 
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "dd/MM/yyyy")]
         public DateTime Ultima_compra { get; set; }
 
         public float Existencias { get; set; }
-    
+
+        public int IdCategoria { get; set; }
+        public Categoria oCategoria { get; set; }
+
+        public ICollection<Detalle_venta> Detalles_Ventas { get; set; }
+
     }
 }
