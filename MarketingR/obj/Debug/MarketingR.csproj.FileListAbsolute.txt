@@ -396,9 +396,6 @@ C:\Users\flore\source\repos\TiendaMVC\MarketingR\bin\es\Microsoft.AspNet.Identit
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.csproj.AssemblyReference.cache
-C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.Migrations.Nombres.resources
-C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.Migrations.prueba1.resources
-C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.csproj.GenerateResource.cache
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.csproj.CoreCompileInputs.cache
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.csproj.CopyComplete
 C:\Users\flore\source\repos\TiendaMVC\MarketingR\obj\Debug\MarketingR.dll
