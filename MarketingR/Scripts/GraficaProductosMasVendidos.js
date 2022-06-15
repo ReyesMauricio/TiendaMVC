@@ -21,7 +21,7 @@
         }
 
         const GraficaVentaPorProducto = {
-            label: "Productos mas Vendidos",
+            label: "Productos más Vendidos",
             data: totalProductos,
             backgroundColor: colorBarras,
             borderColor: colorBordeBarras,
