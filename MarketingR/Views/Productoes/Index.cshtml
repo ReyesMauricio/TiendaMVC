@@ -11,12 +11,10 @@
                 <h3 class="card-title">Listado de Productos</h3>
 
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 66px;">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
-                                <i class="fas fa-plus"></i> Crear
-                            </button>
-                        </div>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
+                            <i class="fas fa-plus"></i> Crear
+                        </button>
                     </div>
                 </div>
             </div>
@@ -69,8 +67,8 @@
                                     @Html.DisplayFor(modelItem => item.Existencias)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdProducto }, new { @class = "btn btn-primary" }) |
-                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdProducto")><i class='fa fa-trash'></i></a>
+                                    <a class="btn btn-primary btn btn-sm" href="Edit/@item.IdProducto"><i class="fa fa-pen"></i></a> |
+                                    <a class='btn btn-danger btn-sm' onclick=Delete("@item.IdProducto")><i class='fa fa-trash'></i></a>
                                 </td>
                             </tr>
                         }

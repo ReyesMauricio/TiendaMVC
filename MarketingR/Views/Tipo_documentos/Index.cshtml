@@ -11,12 +11,10 @@
                 <h3 class="card-title">Listado de documentos</h3>
 
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 66px;">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary" id="crear" onclick="Crear()">
-                                <i class="fas fa-plus"></i> Crear
-                            </button>
-                        </div>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-primary btn-sm" id="crear" onclick="Crear()">
+                            <i class="fas fa-plus"></i> Crear
+                        </button>
                     </div>
                 </div>
             </div>
@@ -26,8 +24,8 @@
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.IdTipoDocumento)</th>
-                            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                            <th class="col-1">@Html.DisplayNameFor(model => model.IdTipoDocumento)</th>
+                            <th class="col-10">@Html.DisplayNameFor(model => model.Descripcion)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,8 +39,8 @@
                                     @Html.DisplayFor(modelItem => item.Descripcion)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdTipoDocumento }, new { @class = "btn btn-primary" }) |
-                                    <a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("@item.IdTipoDocumento")><i class='fa fa-trash'></i></a>
+                                    <a class="btn btn-primary btn btn-sm" href="Edit/@item.IdTipoDocumento"><i class="fa fa-pen"></i></a> |
+                                    <a class='btn btn-danger btn-sm' onclick=Delete("@item.IdTipoDocumento")><i class='fa fa-trash'></i></a>
                                 </td>
                             </tr>
                         }

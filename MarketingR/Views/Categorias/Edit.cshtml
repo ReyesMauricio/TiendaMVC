@@ -24,9 +24,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="row">
- 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.IdCategoria)
 
                         <div class="col-lg-6 col-sm-12">
@@ -61,6 +60,6 @@
 <script>
     function regresar() {
         document.getElementById("btnRegresar")
-        location.href = "/Clientes/Index";
+        location.href = "/Categorias/Index";
     }
 </script>

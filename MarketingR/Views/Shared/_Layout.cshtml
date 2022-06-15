@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link href="~/Content/adminlte.min.css" rel="stylesheet" />
+    <link href="~/Content/Chart.min.css" rel="stylesheet" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -92,7 +93,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
 
                         <li class="nav-header">MENU DEL SISTEMA</li>
 
@@ -239,7 +240,7 @@
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2022 <a>TiendaAPP</a>.</strong>
+            <strong>Copyright &copy; 2022-@DateTime.Today.Year <a>TiendaAPP</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0.0
@@ -255,6 +256,9 @@
     <!-- /.control-sidebar -->
     <!-- jQuery -->
     <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/chart.min.js"></script>
+    <script src="~/Scripts/GraficaProductosMasVendidos.js"></script>
+    <script src="~/Scripts/GraficaProductosPorCategoria.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
