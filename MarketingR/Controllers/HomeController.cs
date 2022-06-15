@@ -14,6 +14,7 @@ namespace MarketingR.Controllers
 
         public ActionResult Index()
         {
+            ViewData["MostarGrafica"] = true;
             ViewData["NumeroEmpleados"] = CountEmpleados();
             ViewData["NumeroClientes"] = CountClientes();
             ViewData["NumeroProductos"] = CountProductos();

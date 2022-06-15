@@ -199,8 +199,11 @@
     <!-- jQuery -->
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/chart.min.js"></script>
-    <script src="~/Scripts/GraficaProductosMasVendidos.js"></script>
-    <script src="~/Scripts/GraficaProductosPorCategoria.js"></script>
+    @if (ViewData["MostarGrafica"] != null)
+    {
+        <script src="~/Scripts/GraficaProductosMasVendidos.js"></script>
+        <script src="~/Scripts/GraficaProductosPorCategoria.js"></script>
+    }
     <!-- jQuery UI 1.11.4 -->
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

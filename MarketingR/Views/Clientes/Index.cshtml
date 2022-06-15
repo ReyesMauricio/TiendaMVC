@@ -4,7 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -60,7 +59,7 @@
                                     @Html.DisplayFor(modelItem => item.Estado)
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn btn-sm" href="Edit/@item.IdCliente"><i class="fa fa-pen"></i></a> |
+                                    <a class="btn btn-primary btn btn-sm" href="/Clientes/Edit/@item.IdCliente"><i class="fa fa-pen"></i></a> |
                                     <a class='btn btn-danger btn-sm' onclick=Delete("@item.IdCliente")><i class='fa fa-trash'></i></a>
                                 </td>
                             </tr>
