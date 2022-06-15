@@ -40,7 +40,10 @@
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        display: false,
+                    },
+                    x: {
+                        display: false,
                     },
                 },
             }
