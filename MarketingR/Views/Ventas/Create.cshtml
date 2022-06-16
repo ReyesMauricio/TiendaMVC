@@ -29,13 +29,13 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         
                         <div class="col-lg-6 col-sm-12 mb-3">
-                            @Html.LabelFor(model => model.IdCliente, "IdCliente", htmlAttributes: new { @class = "control-label" })
+                            <label class="control-label">Cliente</label>
                             @Html.DropDownList("IdCliente", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-lg-6 col-sm-12 mb-3">
-                            @Html.LabelFor(model => model.FechaVenta, htmlAttributes: new { @class = "control-label" })
+                            <label class="control-label">Fecha venta</label>
                             @Html.EditorFor(model => model.FechaVenta, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.FechaVenta, "", new { @class = "text-danger" })
                         </div>
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12 mb-3">
-                            @Html.LabelFor(model => model.TotalVenta, htmlAttributes: new { @class = "control-label" })
+                            <label class="control-label">Total venta</label>
                             @Html.EditorFor(model => model.TotalVenta, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TotalVenta, "", new { @class = "text-danger" })
                         </div>

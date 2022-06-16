@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12">
-                            @Html.LabelFor(model => model.FechaRegistro, htmlAttributes: new { @class = "control-label" })
+                            <label class="control-label">Fecha registro</label>
                             <input type="text" name="FechaRegistro" id="FechaRegistro" value="@ViewBag.FechaRegistro" class="form-control" required />
                             @Html.ValidationMessageFor(model => model.FechaRegistro, "", new { @class = "text-danger" })
                         </div>

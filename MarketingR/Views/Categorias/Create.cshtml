@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12 mb-3">
-                            @Html.LabelFor(model => model.FechaRegistro, htmlAttributes: new { @class = "control-label" })
+                            <label class="control-label">Fecha registro</label>
                             <input type="date" id="FechaRegistro" name="FechaRegistro" class="form-control">
                             @Html.ValidationMessageFor(model => model.FechaRegistro, "", new { @class = "text-danger" })
                         </div>
