@@ -57,8 +57,14 @@ namespace MarketingR.Controllers
         //Suma de ventas
         private double SumaVentas() {
             var ventas = from detalle in db.Detalle_venta select detalle;
-            double SumVentas = ventas.Sum(detalle => detalle.PrecioVenta);
-            return SumVentas;
+            try
+            {
+                double SumVentas = ventas.Sum(detalle => detalle.PrecioVenta);
+                return SumVentas;
+            }
+            catch (System.InvalidOperationException ex) {
+                return 0;
+            }
         }
 
         //grafica ventas
